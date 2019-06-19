@@ -7,73 +7,18 @@ import java.util.Date;
 import khs.jdbc.util.*;
 import khs.model.*;
 
-public class UserDAO {
-	private User getInstance(ResultSet rs) throws SQLException {		
-		User obj = new User(
-				rs.getString("user_id"),
-				rs.getString("user_pw"),
-				rs.getString("user_nick"),
-				rs.getInt("user_tel"),				
-				rs.getString("user_mail"),
-				rs.getTimestamp("user_regist_date"),
-				rs.getInt("user_count_day"));
+public class Board_InfoDAO {
+	private Board_Info getInstance(ResultSet rs) throws SQLException {		
+		Board_Info obj = new Board_Info(
+				rs.getInt("board_id"),
+				rs.getString("board_name"));
 		return obj;
 	}
 	
 	
-	public User selectOneNick(Connection conn, User obj) {
-		User result = null;
-		String sql = "select * from user where user_nick = ?";
-		
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, obj.getUser_nick());
-			
-			rs = pstmt.executeQuery();
-			if( rs.next() )
-				result = getInstance(rs);
-		} catch (SQLException e) {			
-			e.printStackTrace();
-		}
-		
-		Closer.close(rs);
-		Closer.close(pstmt);
-		
-		return result;
-	}
-	
-	
-	
-	public User selectOne(Connection conn, User obj) {
-		User result = null;
-		String sql = "select * from user where user_id = ?";
-		
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, obj.getUser_id());
-			
-			rs = pstmt.executeQuery();
-			if( rs.next() )
-				result = getInstance(rs);
-		} catch (SQLException e) {			
-			e.printStackTrace();
-		}
-		
-		Closer.close(rs);
-		Closer.close(pstmt);
-		
-		return result;
-	}
-	
-	public ArrayList<User> selectAll(Connection conn) {
-		ArrayList<User> result = new ArrayList<>();
-		String sql = "select * from user";
+	public ArrayList<Board_Info> selectAll(Connection conn) {
+		ArrayList<Board_Info> result = new ArrayList<>();
+		String sql = "select * from board_info";
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

@@ -21,7 +21,7 @@ public class LoginCommand extends Command {
 	private UserUpdateService uuService = new UserUpdateService();
 
 	protected String processForm(HttpServletRequest request, HttpServletResponse response) {
-		return null;
+		return formPage;
 	}
 
 	// POST 요청일 경우의 처리 로직을 구현하는 메소드
@@ -37,6 +37,8 @@ public class LoginCommand extends Command {
 			HashMap<String, Object> values = new HashMap<>();
 			values.put("conn", conn);
 			values.put("user", user);
+			values.put("type", "login");
+			
 			HashMap<String, Object> resultMap = uicService.service(values);
 
 			if (!(boolean) resultMap.get("result")) {

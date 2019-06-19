@@ -12,11 +12,24 @@ public class UserIDCheckService implements Service {
 		HashMap<String, Object> result = new HashMap<>();
 		Connection conn = (Connection)values.get("conn");
 		User user = (User)values.get("user");
-				
-		result.put("searchedUser", 
-				userDAO.selectOne(conn, user));
-		result.put("result", 
-				result.get("searchedUser") != null);
+		String type = (String)values.get("type");
+		
+		if(type.equals("idCheck")) {
+			result.put("searchedUser", 
+					userDAO.selectOne(conn, user));
+			result.put("result", 
+					result.get("searchedUser") != null);
+		} else if (type.equals("nickCheck")) {
+			result.put("searchedUser", 
+					userDAO.selectOneNick(conn, user));
+			result.put("result", 
+					result.get("searchedUser") != null);
+		} else if (type.equals("login")) {
+			result.put("searchedUser", 
+					userDAO.selectOne(conn, user));
+			result.put("result", 
+					result.get("searchedUser") != null);
+		}
 		
 		return result;
 	}

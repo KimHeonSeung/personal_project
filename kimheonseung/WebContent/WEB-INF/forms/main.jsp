@@ -15,7 +15,15 @@
 <!-- 좌측 중단에 표시 -->
 <div id="lm">
 <c:if test="${ empty sessionScope.login_user }" var="r">
-	<h1>비회원으로 접속중입니다.</h1>
+	<form action="<%= request.getContextPath() %>/login.khs" method="get">
+			<input type="submit" value="로그인">
+	</form>
+	<form action="<%= request.getContextPath() %>/regist.khs" method="get">
+			<input type="submit" value="가입하기">
+	</form>
+	
+	
+	<a href="<%= request.getContextPath() %>/board.khs">게시판 목록으로 가기</a>
 </c:if>
 
 <c:if test="${ not r }">
@@ -24,8 +32,21 @@
 		<td>${ login_user.user_nick } 님 환영합니다.</td>
 	</tr>
 	<tr>
-		<td><button type="button" onclick="location.href='<%= request.getContextPath() %>/logout.khs' ">로그아웃</button></td>
-		<td><button type="button" onclick="location.href='<%= request.getContextPath() %>/user_info.khs' ">회원정보 보기</button></td>
+		<td>
+		<form action="<%= request.getContextPath() %>/logout.khs" method="post">
+			<input type="submit" value="로그아웃">
+		</form>
+		</td>
+		<td>
+		<form action="<%= request.getContextPath() %>/user_info.khs" method="post">
+			<input type="submit" value="회원 정보 보기">
+		</form>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<a href="<%= request.getContextPath() %>/board.khs">게시판 목록으로 가기</a>
+		</td>
 	</tr>
 </table>
 
